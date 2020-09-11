@@ -72,6 +72,9 @@ export default class App extends Component<Props> {
     );
   }
 
+  /**
+   * Affiche le résultat d'une partie à partir des données du state.
+   */
   renderResult = () => {
     const {message, playerChoice} = this.state;
     return (
@@ -82,6 +85,9 @@ export default class App extends Component<Props> {
     );
   };
 
+  /**
+   * Affiche les trois options pour que le joueur puisse faire son choix
+   */
   renderOptionSelect = () => {
     return (
       <View style={styles.section}>
@@ -98,20 +104,30 @@ export default class App extends Component<Props> {
     );
   };
 
-  renderOption = (o, index) => {
+  /**
+   * Affichage d'une option de jeu (pierre / feuille / ciseau)
+   */
+  renderOption = (option, index) => {
     return (
       <OptionButton
-        option={o}
+        option={option}
         key={'option' + index}
         style={{backgroundColor: Colors.playerColor}}
-        onPress={() => this.onUserPlay(o)}
+        onPress={() => this.onOptionPress(option)}
       />
     );
   };
 
   //------------------------------------------------------------ HANDLERS
 
-  onUserPlay = (option) => {
+  /**
+   * Lorsque l'utilisateur appuye sur un bouton d'option,
+   * soit la partie est réinitialisée
+   * soit la partie démarre...
+   *
+   * @param option
+   */
+  onOptionPress = (option) => {
     let {playerScore, computerScore, message, playerChoice} = this.state;
 
     if (playerChoice) {
