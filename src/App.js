@@ -64,6 +64,8 @@ export default class App extends Component<Props> {
                 />
               </View>
               <Score computerScore={computerScore} playerScore={playerScore} />
+              {/* this.renderOptionSelect() */}
+              {/* TODO 7 : si playerChoice n'est pas nul, alors afficher renderResult plutôt que renderOptionSelect */}
               {playerChoice ? this.renderResult() : this.renderOptionSelect()}
             </View>
           </TouchableWithoutFeedback>
@@ -106,6 +108,7 @@ export default class App extends Component<Props> {
 
   /**
    * Affichage d'une option de jeu (pierre / feuille / ciseau)
+   * TODO 1 : appeler le handler onOptionPress quand l'utilisateur cliquera sur une option
    */
   renderOption = (option, index) => {
     return (
@@ -130,33 +133,36 @@ export default class App extends Component<Props> {
   onOptionPress = (option) => {
     let {playerScore, computerScore, message, playerChoice} = this.state;
 
+    // TODO 8 : si playerChoice est déjà défini, réinitialiser les choix
     if (playerChoice) {
       // reset game
-      this.setState({computerChoice: null, message: null, playerChoice: null});
+      this.setState({computerChoice: null, playerChoice: null});
       return;
-    } else {
-      // play new game
-      const computerChoice = GameHelper.generateComputerChoice();
-      const result = GameHelper.calculateWhoWins(option, computerChoice);
-      if (result == RESULT.playerWon) {
-        playerScore++;
-      } else if (result == RESULT.playerLost) {
-        computerScore++;
-      }
-      message = GameHelper.getResultMessage(result);
-
-      this.setState({
-        playerScore,
-        computerScore,
-        computerChoice,
-        playerChoice: option,
-        message,
-      });
     }
+
+    // TODO 2 : générer un choix de l'ordinateur en utilisant GameHelper.generateComputerChoice();
+    const computerChoice = GameHelper.generateComputerChoice();
+    // TODO 3 : obtenir le résultat de la partie en utilisant GameHelper.calculateWhoWins(...);
+    const result = GameHelper.calculateWhoWins(option, computerChoice);
+    // TODO 4 : selon le résultat (à comparer avec RESULT.playerWon, RESULT.playerLost) modifier les scores;
+    if (result == RESULT.playerWon) {
+      playerScore++;
+    } else if (result == RESULT.playerLost) {
+      computerScore++;
+    }
+    // TODO 5 : Trouver le message de résultat avec GameHelper.getResultMessage(...);
+    message = GameHelper.getResultMessage(result);
+    // TODO 6 : enregistrer les choix, le message et les scores dans le state du composant;
+    this.setState({
+      playerScore,
+      computerScore,
+      computerChoice,
+      playerChoice: option,
+      message,
+    });
   };
 
   //------------------------------------------------------------ PRIVATES
-
 }
 
 const styles = StyleSheet.create({
