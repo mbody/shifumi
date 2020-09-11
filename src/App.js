@@ -64,9 +64,8 @@ export default class App extends Component<Props> {
                 />
               </View>
               <Score computerScore={computerScore} playerScore={playerScore} />
-              {/* this.renderOptionSelect() */}
+              {this.renderOptionSelect()}
               {/* TODO 7 : si playerChoice n'est pas nul, alors afficher renderResult plutôt que renderOptionSelect */}
-              {playerChoice ? this.renderResult() : this.renderOptionSelect()}
             </View>
           </TouchableWithoutFeedback>
         </SafeAreaView>
@@ -116,7 +115,6 @@ export default class App extends Component<Props> {
         option={option}
         key={'option' + index}
         style={{backgroundColor: Colors.playerColor}}
-        onPress={() => this.onOptionPress(option)}
       />
     );
   };
@@ -134,32 +132,12 @@ export default class App extends Component<Props> {
     let {playerScore, computerScore, message, playerChoice} = this.state;
 
     // TODO 8 : si playerChoice est déjà défini, réinitialiser les choix
-    if (playerChoice) {
-      // reset game
-      this.setState({computerChoice: null, playerChoice: null});
-      return;
-    }
 
     // TODO 2 : générer un choix de l'ordinateur en utilisant GameHelper.generateComputerChoice();
-    const computerChoice = GameHelper.generateComputerChoice();
     // TODO 3 : obtenir le résultat de la partie en utilisant GameHelper.calculateWhoWins(...);
-    const result = GameHelper.calculateWhoWins(option, computerChoice);
     // TODO 4 : selon le résultat (à comparer avec RESULT.playerWon, RESULT.playerLost) modifier les scores;
-    if (result == RESULT.playerWon) {
-      playerScore++;
-    } else if (result == RESULT.playerLost) {
-      computerScore++;
-    }
     // TODO 5 : Trouver le message de résultat avec GameHelper.getResultMessage(...);
-    message = GameHelper.getResultMessage(result);
     // TODO 6 : enregistrer les choix, le message et les scores dans le state du composant;
-    this.setState({
-      playerScore,
-      computerScore,
-      computerChoice,
-      playerChoice: option,
-      message,
-    });
   };
 
   //------------------------------------------------------------ PRIVATES
