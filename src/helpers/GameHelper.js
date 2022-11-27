@@ -46,7 +46,9 @@ const resultTable = [
 export class GameHelper {
   static generateComputerChoice() {
     const r = Math.floor(Math.random() * 3);
-    return OPTIONS[r];
+    const option = OPTIONS[r];
+    console.log("L'ordi joue " + option.id);
+    return option;
   }
 
   static calculateWhoWins(playerChoice, computerChoice) {

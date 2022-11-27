@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import OptionButton from "./components/OptionButton";
 import Score from "./components/Score";
-import { OPTIONS } from "./helpers/GameHelper";
+import { GameHelper, OPTIONS, RESULT } from "./helpers/GameHelper";
 import { Colors } from "./theme/Theme";
 
 export default class App extends Component {
@@ -52,8 +52,8 @@ export default class App extends Component {
                 />
               </View>
               <Score computerScore={computerScore} playerScore={playerScore} />
+              {/* TODO 7 : afficher le résultat du joueur en vous aidant de la méthode renderResult */}
               {this.renderOptionSelect()}
-              {/* TODO 7 : si playerChoice n'est pas nul, alors afficher renderResult plutôt que renderOptionSelect */}
             </View>
           </TouchableWithoutFeedback>
         </SafeAreaView>
@@ -96,7 +96,7 @@ export default class App extends Component {
 
   /**
    * Affichage d'une option de jeu (pierre / feuille / ciseau)
-   * TODO 1 : appeler le handler onOptionPress quand l'utilisateur clique sur une option
+   * TODO 1 : remplacer l'appel au handler actuel pour le handler onOptionPress quand l'utilisateur clique sur une option
    */
   renderOption = (option, index) => {
     return (
@@ -118,12 +118,11 @@ export default class App extends Component {
    *
    * @param option
    */
-  onOptionPress = (option) => {
-    let { playerScore, computerScore, message, playerChoice } = this.state;
+  onOptionPress = (playerChoice) => {
+    console.log("Le joueur joue " + playerChoice.id);
+    let { playerScore, computerScore, message } = this.state;
 
-    // TODO 8 : si playerChoice est déjà défini, réinitialiser les choix
-
-    // TODO 2 : générer un choix de l'ordinateur en utilisant GameHelper.generateComputerChoice();
+    // TODO 2 : générer un choix de l'ordinateur en utilisant GameHelper.generateComputerChoice() et placer le dans une constante computerChoice;
     // TODO 3 : obtenir le résultat de la partie en utilisant GameHelper.calculateWhoWins(...);
     // TODO 4 : selon le résultat (à comparer avec RESULT.playerWon, RESULT.playerLost) modifier les scores;
     // TODO 5 : Trouver le message de résultat avec GameHelper.getResultMessage(...);
