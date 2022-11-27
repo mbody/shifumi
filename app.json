@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Shifumi",
-    "slug": "Shifumi",
+    "name": "shifumi",
+    "slug": "shifumi",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,7 +19,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "fr.m2i.Shifumi"
+      "bundleIdentifier": "fr.m2i.shifumi"
     },
     "android": {
       "adaptiveIcon": {
